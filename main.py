@@ -41,7 +41,7 @@ class About(tk.Toplevel):
 
 class Application(tk.Tk):
     name = basename(splitext(basename(__file__.capitalize()))[0])
-    name = "Foo"
+    name = "Grafy"
 
     def __init__(self):
         super().__init__(className=self.name)
@@ -63,7 +63,11 @@ class Application(tk.Tk):
     def show(self):
         xaxis = []
         yaxis = []
-        with open(filedialog.askopenfilename(), 'r') as f:
+        soubor = filedialog.askopenfilename()
+        self.entry.delete(0, "end")
+        self.entry.insert(0, soubor)
+        with open(soubor, 'r') as f:
+            print(soubor)
             while True:
                 line = f.readline()
                 if line == '':  #jsem na konci souboru
