@@ -54,30 +54,34 @@ class Application(tk.Tk):
         self.entry = MyEntry(self.frameEntry)
         self.entry.pack()
 
-        self.btn = tk.Button(self, text="Kreslit", command = self.show)
+        self.btn = tk.Button(self, text="...", command = self.select)
         self.btn.pack()
+        self.btn1 = tk.Button(self, text="Kreslit", command = self.show)
+        self.btn1.pack()
         self.btn2 = tk.Button(self, text="Quit",  command = self.quit)
         self.btn2.pack()
 
+    def select(self):
+        self.soubor = filedialog.askopenfilename()
+        self.entry.delete(0, "end")
+        self.entry.insert(0, self.soubor)
 
     def show(self):
         xaxis = []
         yaxis = []
-        soubor = filedialog.askopenfilename()
-        self.entry.delete(0, "end")
-        self.entry.insert(0, soubor)
-        with open(soubor, 'r') as f:
-            print(soubor)
+        with open(self.soubor, 'r') as f:
+            print(self.soubor)
             while True:
                 line = f.readline()
                 if line == '':  #jsem na konci souboru
                     break
                 x, y = line.split()
-                xaxis.append(x)
-                yaxis.append(y)
+                xaxis.append(float(x))
+                yaxis.append(float(y))
         pl.plot(xaxis, yaxis)
         pl.show()
-        
+
+
     def quit(self, event=None):
         super().quit()
 
